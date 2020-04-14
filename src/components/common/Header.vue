@@ -39,7 +39,10 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                            <el-dropdown-item>项目仓库</el-dropdown-item>
+                            <el-dropdown-item>API项目仓库</el-dropdown-item>
+                        </a>
+                        <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
+                            <el-dropdown-item>UI项目仓库</el-dropdown-item>
                         </a>
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
@@ -55,13 +58,13 @@ export default {
         return {
             collapse: false,
             fullscreen: false,
-            name: 'linxin',
+            name: 'eachdemo',
             message: 2
         };
     },
     computed: {
         username() {
-            let username = localStorage.getItem('ms_username');
+            let username = localStorage.getItem('auth_name');
             return username ? username : this.name;
         }
     },
@@ -69,7 +72,7 @@ export default {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
-                localStorage.removeItem('ms_username');
+                localStorage.removeItem('access_token');
                 this.$router.push('/login');
             }
         },
@@ -186,6 +189,8 @@ export default {
     cursor: pointer;
 }
 .el-dropdown-menu__item {
-    text-align: center;
+    
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 </style>

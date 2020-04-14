@@ -3,8 +3,8 @@
         <div class="ms-login">
             <div class="ms-title">后台管理系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
-                <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                <el-form-item prop="email">
+                    <el-input v-model="param.email" placeholder="email">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
@@ -32,28 +32,34 @@ export default {
     data: function() {
         return {
             param: {
-                username: 'admin',
-                password: '123123',
+                email: 'admin@wuyan.com',
+                password: 'admin',
             },
             rules: {
-                username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                email: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
                 password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
             },
         };
     },
     methods: {
         submitForm() {
-            this.$refs.login.validate(valid => {
-                if (valid) {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');
-                } else {
-                    this.$message.error('请输入账号和密码');
-                    console.log('error submit!!');
-                    return false;
-                }
-            });
+            this.$axios.post('eachdemo/rbac/admin/login', this.param)
+                .then(response=>{
+                    var access_token = response.data.access_token;
+                    this.$message({
+                        type: 'success',
+                        message: '登录成功'
+                    });
+                    localStorage.clear()
+                    localStorage.setItem('access_token', access_token);
+
+                    this.$axios.get('eachdemo/rbac/admin/me', this.param)
+                        .then(response=>{
+                            let data = response.data
+                            localStorage.setItem('auth_name', data.name);
+                            this.$router.push('/');
+                        });
+                });
         },
     },
 };
