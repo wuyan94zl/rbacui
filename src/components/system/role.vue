@@ -43,7 +43,7 @@
         </el-dialog>
         <!-- 编辑弹出框 -->
         <el-dialog title="角色权限管理" :visible.sync="rolePermissionVisible" width="30%">
-            <el-tree :data="rolePermissionFrom" show-checkbox default-expand-all node-key="id" :default-checked-keys="hasPermissionFrom" ref="tree" highlight-current :props="defaultProps" >
+            <el-tree :data="rolePermissionFrom" show-checkbox default-expand-all node-key="id" :default-checked-keys="hasPermissionFrom" ref="tree" highlight-current :props="defaultProps">
             </el-tree>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="rolePermissionVisible = false">取 消</el-button>

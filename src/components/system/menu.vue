@@ -25,12 +25,11 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="route" width="200px" label="菜单路由"></el-table-column>
-                
                 <el-table-column prop="name" label="菜单权限">
                     <template slot-scope="scope">
                         <span v-for="(item,index) in scope.row.permissions" style="margin-left: 10px;">
                             <el-row style="margin-left: 10px;">
-                                <el-col :span="8">{{index+1}}：{{item.name}}</el-col>
+                                <el-col :span="8">{{index+1}}. {{item.name}}</el-col>
                                 <el-col :span="14">{{item.action}}</el-col>
                                 <el-col :span="2">
                                     <el-button type="text" icon="el-icon-edit" @click="permissionVisible=true;permissionForm=item"></el-button>
@@ -66,16 +65,16 @@
                     <el-input v-model="menuForm.route"></el-input>
                 </el-form-item>
                 <el-form-item label="图标">
-                        <el-button @click="iconVisible = true">选择图标</el-button>
-                        <el-input v-model="menuForm.icon" style="display:none"></el-input>
-                        <span style="width:20px;height:20px;margin-left:10px;"><i :class="this.menuForm.icon" style="width:20px;height:20px;" ></i></span>
-                    </el-form-item>
+                    <el-button @click="iconVisible = true">选择图标</el-button>
+                    <el-input v-model="menuForm.icon" style="display:none"></el-input>
+                    <span style="width:20px;height:20px;margin-left:10px;"><i :class="this.menuForm.icon" style="width:20px;height:20px;"></i></span>
+                </el-form-item>
+                <el-form-item label="路由排序">
+                    <el-input-number v-model="menuForm.sort" :min="1" :max="100000" label="排序值"></el-input-number>
+                </el-form-item>
                 <el-form-item label="菜单显示">
-                    
-                        <el-radio v-model="menuForm.display" :label="1">显示</el-radio>
-                        <el-radio v-model="menuForm.display" :label="0">隐藏</el-radio>
-                    
-                    
+                    <el-radio v-model="menuForm.display" :label="1">显示</el-radio>
+                    <el-radio v-model="menuForm.display" :label="0">隐藏</el-radio>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -144,133 +143,133 @@ export default {
             selectMenu: [],
             keyword: '',
             iconList: [
-                    'attentionforbid',
-                    'attentionforbidfill',
-                    'attention',
-                    'attentionfill',
-                    'tag',
-                    'tagfill',
-                    'people',
-                    'peoplefill',
-                    'notice',
-                    'noticefill',
-                    'mobile',
-                    'mobilefill',
-                    'voice',
-                    'voicefill',
-                    'unlock',
-                    'lock',
-                    'home',
-                    'homefill',
-                    'delete',
-                    'deletefill',
-                    'notification',
-                    'notificationfill',
-                    'notificationforbidfill',
-                    'like',
-                    'likefill',
-                    'comment',
-                    'commentfill',
-                    'camera',
-                    'camerafill',
-                    'warn',
-                    'warnfill',
-                    'time',
-                    'timefill',
-                    'location',
-                    'locationfill',
-                    'favor',
-                    'favorfill',
-                    'skin',
-                    'skinfill',
-                    'news',
-                    'newsfill',
-                    'record',
-                    'recordfill',
-                    'emoji',
-                    'emojifill',
-                    'message',
-                    'messagefill',
-                    'goods',
-                    'goodsfill',
-                    'crown',
-                    'crownfill',
-                    'move',
-                    'add',
-                    'hot',
-                    'hotfill',
-                    'service',
-                    'servicefill',
-                    'present',
-                    'presentfill',
-                    'pic',
-                    'picfill',
-                    'rank',
-                    'rankfill',
-                    'male',
-                    'female',
-                    'down',
-                    'top',
-                    'recharge',
-                    'rechargefill',
-                    'forward',
-                    'forwardfill',
-                    'info',
-                    'infofill',
-                    'redpacket',
-                    'redpacket_fill',
-                    'roundadd',
-                    'roundaddfill',
-                    'friendadd',
-                    'friendaddfill',
-                    'cart',
-                    'cartfill',
-                    'more',
-                    'moreandroid',
-                    'back',
-                    'right',
-                    'shop',
-                    'shopfill',
-                    'question',
-                    'questionfill',
-                    'roundclose',
-                    'roundclosefill',
-                    'roundcheck',
-                    'roundcheckfill',
-                    'global',
-                    'mail',
-                    'punch',
-                    'exit',
-                    'upload',
-                    'read',
-                    'file',
-                    'link',
-                    'full',
-                    'group',
-                    'friend',
-                    'profile',
-                    'addressbook',
-                    'calendar',
-                    'text',
-                    'copy',
-                    'share',
-                    'wifi',
-                    'vipcard',
-                    'weibo',
-                    'remind',
-                    'refresh',
-                    'filter',
-                    'settings',
-                    'scan',
-                    'qrcode',
-                    'cascades',
-                    'apps',
-                    'sort',
-                    'searchlist',
-                    'search',
-                    'edit'
-                ],
-            iconVisible:false,
+                'attentionforbid',
+                'attentionforbidfill',
+                'attention',
+                'attentionfill',
+                'tag',
+                'tagfill',
+                'people',
+                'peoplefill',
+                'notice',
+                'noticefill',
+                'mobile',
+                'mobilefill',
+                'voice',
+                'voicefill',
+                'unlock',
+                'lock',
+                'home',
+                'homefill',
+                'delete',
+                'deletefill',
+                'notification',
+                'notificationfill',
+                'notificationforbidfill',
+                'like',
+                'likefill',
+                'comment',
+                'commentfill',
+                'camera',
+                'camerafill',
+                'warn',
+                'warnfill',
+                'time',
+                'timefill',
+                'location',
+                'locationfill',
+                'favor',
+                'favorfill',
+                'skin',
+                'skinfill',
+                'news',
+                'newsfill',
+                'record',
+                'recordfill',
+                'emoji',
+                'emojifill',
+                'message',
+                'messagefill',
+                'goods',
+                'goodsfill',
+                'crown',
+                'crownfill',
+                'move',
+                'add',
+                'hot',
+                'hotfill',
+                'service',
+                'servicefill',
+                'present',
+                'presentfill',
+                'pic',
+                'picfill',
+                'rank',
+                'rankfill',
+                'male',
+                'female',
+                'down',
+                'top',
+                'recharge',
+                'rechargefill',
+                'forward',
+                'forwardfill',
+                'info',
+                'infofill',
+                'redpacket',
+                'redpacket_fill',
+                'roundadd',
+                'roundaddfill',
+                'friendadd',
+                'friendaddfill',
+                'cart',
+                'cartfill',
+                'more',
+                'moreandroid',
+                'back',
+                'right',
+                'shop',
+                'shopfill',
+                'question',
+                'questionfill',
+                'roundclose',
+                'roundclosefill',
+                'roundcheck',
+                'roundcheckfill',
+                'global',
+                'mail',
+                'punch',
+                'exit',
+                'upload',
+                'read',
+                'file',
+                'link',
+                'full',
+                'group',
+                'friend',
+                'profile',
+                'addressbook',
+                'calendar',
+                'text',
+                'copy',
+                'share',
+                'wifi',
+                'vipcard',
+                'weibo',
+                'remind',
+                'refresh',
+                'filter',
+                'settings',
+                'scan',
+                'qrcode',
+                'cascades',
+                'apps',
+                'sort',
+                'searchlist',
+                'search',
+                'edit'
+            ],
+            iconVisible: false,
         };
     },
     created() {
@@ -278,15 +277,15 @@ export default {
         this.getMenu();
     },
     computed: {
-            list(){
-                return this.iconList.filter((item) => {
-                    return item.indexOf(this.keyword) !== -1;
-                })
-            }
-        },
+        list() {
+            return this.iconList.filter((item) => {
+                return item.indexOf(this.keyword) !== -1;
+            })
+        }
+    },
     methods: {
-        selectIcon(icon){
-            this.menuForm.icon = 'el-icon-lx-'+icon;
+        selectIcon(icon) {
+            this.menuForm.icon = 'el-icon-lx-' + icon;
             this.iconVisible = false;
         },
         getSelect() {
@@ -376,7 +375,7 @@ export default {
                 })
                 .catch(() => {});
         },
-        route(){
+        route() {
             this.$axios.get('eachdemo/rbac/permission/generate', {})
                 .then(response => {
                     this.$message.success('生成成功');
@@ -427,29 +426,34 @@ export default {
     width: 40px;
     height: 40px;
 }
-.icon-li{
-        display: inline-block;
-        padding: 20px;
-        width: 5px;
-        height: 5px;
-    }
-    .icon-li-content{
-        display: flex;
-        height: 100%;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-    .icon-li-content i{
-        font-size: 24px;
-        color: #606266;
-    }
-    .icon-li-content span{
-        margin-top: 10px;
-        color: #787878;
-    }
-    .el-input--small{
-    width: 70%!important;
-    }
+
+.icon-li {
+    display: inline-block;
+    padding: 20px;
+    width: 5px;
+    height: 5px;
+}
+
+.icon-li-content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.icon-li-content i {
+    font-size: 24px;
+    color: #606266;
+}
+
+.icon-li-content span {
+    margin-top: 10px;
+    color: #787878;
+}
+
+.el-input--small {
+    width: 70% !important;
+}
 </style>
