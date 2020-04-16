@@ -13,22 +13,26 @@
                 <el-button type="primary" icon="el-icon-lx-add" class="handle-del mr10" @click="route()">生成路由权限</el-button>
             </div>
             <el-table :data="treeMenu" style="width: 100%;margin-bottom: 30px;" border row-key="id" :default-expand-all="true">
-                <el-table-column prop="name" width="400px" label="菜单名称">
+                <el-table-column prop="name" width="300px" label="菜单名称">
                     <template slot-scope="scope">
                         <el-button type="text" icon="el-icon-lx-add" @click="menuVisible=true;menuForm.parentName=scope.row.name;menuForm.pid=scope.row.id">
                         </el-button>&nbsp&nbsp{{scope.row.name}}
+                        <span v-if="scope.row.display == 1" style="color: blue">（显示）</span>
+                        <span v-else style="color: red">（隐藏）</span>
                         <span style="float: right;">
                             <el-button v-if="!scope.row.children" type="text" icon="el-icon-lx-add" @click="permissionVisible=true;permissionMenu=scope.row.name;permissionForm.menu_id=scope.row.id">权限</el-button>
                         </span>
                     </template>
                 </el-table-column>
+                <el-table-column prop="route" width="200px" label="菜单路由"></el-table-column>
+                
                 <el-table-column prop="name" label="菜单权限">
                     <template slot-scope="scope">
                         <span v-for="(item,index) in scope.row.permissions" style="margin-left: 10px;">
                             <el-row style="margin-left: 10px;">
                                 <el-col :span="8">{{index+1}}：{{item.name}}</el-col>
-                                <el-col :span="8">{{item.action}}</el-col>
-                                <el-col :span="8">
+                                <el-col :span="14">{{item.action}}</el-col>
+                                <el-col :span="2">
                                     <el-button type="text" icon="el-icon-edit" @click="permissionVisible=true;permissionForm=item"></el-button>
                                     <el-button type="text" icon="el-icon-delete" class="red" @click="permissionDel(item.id,item.name)"></el-button>
                                 </el-col>
@@ -67,7 +71,11 @@
                         <span style="width:20px;height:20px;margin-left:10px;"><i :class="this.menuForm.icon" style="width:20px;height:20px;" ></i></span>
                     </el-form-item>
                 <el-form-item label="菜单显示">
-                    <el-input v-model="form.address"></el-input>
+                    
+                        <el-radio v-model="menuForm.display" :label="1">显示</el-radio>
+                        <el-radio v-model="menuForm.display" :label="0">隐藏</el-radio>
+                    
+                    
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -122,7 +130,6 @@
     </div>
 </template>
 <script>
-import { fetchData } from '../../api/index';
 export default {
     name: 'basetable',
     data() {
@@ -308,6 +315,7 @@ export default {
                     .then(response => {
                         this.$message.success(`菜单添加成功`);
                         this.getMenu()
+                        this.getSelect();
                         this.handleClose()
                     });
             }

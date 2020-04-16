@@ -16,7 +16,7 @@
                 <el-table-column prop="remark" label="角色说明"></el-table-column>
                 <el-table-column label="操作" width="380" align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="rolePermissionVisible=true;menuPermission(scope.row.id);">菜单权限管理</el-button>
+                        <el-button type="text" icon="el-icon-edit" @click="rolePermissionVisible=true;menuPermission(scope.row.id);">设置权限</el-button>
                         <el-button type="text" icon="el-icon-edit" @click="roleVisible=true;roleForm=scope.row">编辑</el-button>
                         <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.row.id)">删除</el-button>
                     </template>
@@ -113,9 +113,6 @@ export default {
                     });
             }
         },
-        roleDel() {
-
-        },
 
         menuPermission(id) {
             this.role_id = id
@@ -154,6 +151,7 @@ export default {
                 .then(() => {
                     this.$axios.get('eachdemo/rbac/role/delete/' + id, {})
                         .then(response => {
+                            this.getRoles();
                             this.$message.success('删除成功');
                         });
                 })

@@ -42,6 +42,7 @@ router.beforeEach((to, from, next) => {
     }
 });
 let baseURL = 'http://rbac6.me/' /*本地*/
+// let baseURL = 'http://rbacapi.wuyan94zl.cn/' /*本地*/
 Vue.prototype.$baseURL = baseURL;
 // 创建axios实例
 const service = axios.create({
